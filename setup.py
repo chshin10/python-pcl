@@ -94,6 +94,7 @@ if platform.system() == "Windows":
             break
     else:
         boost_root = pcl_root + '\\3rdParty\\Boost'
+#        boost_root = pcl_root + '\\3rdParty\\Boost\\include\\boost-1_68\\boost'
 
     # EIGEN_ROOT
     for k, v in os.environ.items():
@@ -198,9 +199,16 @@ if platform.system() == "Windows":
         # PCL 1.8.0 python Version >= 3.5
         # Visual Studio 2015
         if info.major == 3 and info.minor >= 5:
-            # PCL 1.8.1
-            boost_version = '1_64'
-            vtk_version = '8.0'
+            # PCL 1.9.0
+            if(pcl_version == '-1.9'):
+                boost_version = '1_68'
+                vtk_version = '8.1'
+            elif(pcl_version == '-1.8'):
+                boost_version = '1_64'
+                vtk_version = '8.0'
+#            # PCL 1.8.1
+#            boost_version = '1_64'
+#            vtk_version = '8.0'
             # pcl-1.8
             # 1.8.1 use 2d required features
             pcl_libs = ["2d", "common", "features", "filters", "geometry",
@@ -446,6 +454,7 @@ if platform.system() == "Windows":
     # ext_args['extra_compile_args'].append('/W3')
     # ext_args['extra_compile_args'].append('/GR')
     ext_args['extra_compile_args'].append('/EHsc')
+    # ext_args['extra_compile_args'].append('/D_WINDOWS')
     # FW: Link time errors in RangeImage (with /clr)
     # http://www.pcl-users.org/FW-Link-time-errors-in-RangeImage-with-clr-td3581422.html
     # ext_args['extra_compile_args'].append('/clr:nostdlib')
